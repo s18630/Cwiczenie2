@@ -8,11 +8,12 @@ namespace Cwiczenie2
 
     {
         public List<string> data;
-
+        private List<CorrectRecord> dataSets;
 
         public Data(List<string> lista)
         {
             data = new List<string>();
+            dataSets = new List<CorrectRecord>();
             extractData(lista);
 
         }
@@ -45,17 +46,34 @@ namespace Cwiczenie2
                 try
                 {
                     CorrectRecord correctRecord = new CorrectRecord(studentsData);
-                    string record = correctRecord.getCorrectedRecord();
 
-                     // sptawdzić czy się nie powtarzają
-                    data.Add(record);
+                    if (isDuplicate(correctRecord) )
+                    {
+
+                        throw new Exception("Znaleziono duplikat: " + correctRecord.getCorrectedRecord() );
+                    }
+                    else
+                    {
+                        dataSets.Add(correctRecord);
+                        string record = correctRecord.getCorrectedRecord();
+
+                        data.Add(record);
+
+                        correctRecord.showDataSet();
 
 
-                    correctRecord.showDataSet();
+
+                        iloscposprawdzeniu++;
+
+                    }
+                   
+
+
+               //     correctRecord.showDataSet();
 
          
 
-                    iloscposprawdzeniu++;
+                //    iloscposprawdzeniu++;
 
                 }
                 catch (Exception ex)
@@ -163,8 +181,8 @@ namespace Cwiczenie2
                 {
 
                     columns=sortColumns(columns);
+
                     this.columns = columns;
-                    // dodać potem funcke na odpowiednie miejsca
 
                     correctedRecord= string.Join(",", columns);
                     
@@ -174,7 +192,8 @@ namespace Cwiczenie2
                
 
             }
-            
+           
+
 
 
             private string[] sortColumns(string [] columns) 
@@ -246,6 +265,8 @@ namespace Cwiczenie2
 
 
 
+
+
             public void showDataSet()
             {
                 Console.WriteLine();
@@ -261,11 +282,65 @@ namespace Cwiczenie2
 
 
             }
+            public string getIndexNumber()
+            {
+                return indexNumber;
+            }
+
+            public string getFname()
+            {
+                return fname;
+            }
+
+            public string getLname()
+            {
+                return lname;
+            }
+
 
         }
-    
 
 
+
+
+        private bool isDuplicate(CorrectRecord record)
+        {
+            foreach (CorrectRecord s in dataSets)
+            {
+                int conditions = 0;
+
+                if (Equals(s.getIndexNumber(), record.getIndexNumber()))
+                {
+                    conditions++;
+                }
+
+                if (Equals(s.getFname(), record.getFname()))
+                {
+                    conditions++;
+                }
+
+                if (Equals(s.getLname(), record.getLname()))
+                {
+                    conditions++;
+                }
+
+                if (conditions == 3)
+                {
+                    return true;
+                }
+
+            }
+
+
+            return false;
         }
+
+
+
+
+
+
+
     }
+}
 
