@@ -31,10 +31,14 @@ namespace Cwiczenie2
 
                 Data daneStudentow = new Data(plikBezParametru.content);
                 daneStudentow.showData();
-                                
-                            
-                                
-                                
+
+                //      PlikWyjsciowy plikWyjsciowy = new PlikWyjsciowy(daneStudentow.data);
+
+                //     PlikWyjsciowy plikWyjsciowy = new PlikWyjsciowy(daneStudentow.data, "xml");
+                //     PlikWyjsciowy plikWyjsciowy = new PlikWyjsciowy(daneStudentow.data, "testowyzapi.xml");
+                //     PlikWyjsciowy plikWyjsciowy = new PlikWyjsciowy(daneStudentow.data, "testowyzapi.oml");
+                //       PlikWyjsciowy plikWyjsciowy = new PlikWyjsciowy(daneStudentow.data, "oml");
+                 //      PlikWyjsciowy plikWyjsciowy = new PlikWyjsciowy(daneStudentow.data, "probazapisy.xml", "xml");
 
 
 
