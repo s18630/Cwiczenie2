@@ -128,19 +128,32 @@ namespace Cwiczenie2
         private class CorrectRecord
 
         {
-            private string[] record;
+            private string[] columns;
             private string correctedRecord;
 
-            public CorrectRecord(string[] record)
+
+
+            private string indexNumber;
+            private string fname ;
+            private string lname ;
+            private string birthdate;
+            private string email ;
+            private string mothersName ;
+            private string fathersName ;
+            private string studiesName;
+            private string studiesMode ;
+
+
+            public CorrectRecord(string[] columns)
             {
 
 
-                if (record.Length != 9)
+                if (columns.Length != 9)
                 {
                     throw new Exception("Zła ilośc dostarczonych do konstruktora danych");
                 }
 
-                if (isBlankFiled(record))
+                if (isBlankFiled(columns))
                 {
 
                     throw new Exception(" Jenda z kolumn nawiera nieprawidłową wartość");
@@ -148,10 +161,12 @@ namespace Cwiczenie2
                 }
                 else
                 {
-                    this.record = record;
+
+                    columns=sortColumns(columns);
+                    this.columns = columns;
                     // dodać potem funcke na odpowiednie miejsca
 
-                    correctedRecord= string.Join(",", record);
+                    correctedRecord= string.Join(",", columns);
                     
 
                 }
@@ -159,8 +174,38 @@ namespace Cwiczenie2
                
 
             }
+            
 
 
+            private string[] sortColumns(string [] columns) 
+            {
+                this.indexNumber = columns[4];
+                this.fname = columns[0];
+                this.lname = columns[1];
+                this.birthdate = columns[5];
+                this.email = columns[6];
+                this.mothersName = columns[7];
+                this.fathersName = columns[8];
+                this.studiesName = columns[2];
+                this.studiesMode = columns[3];
+
+                columns = new string[] {
+                    indexNumber,
+                    fname,
+                    lname,
+                    birthdate,
+                    email,
+                    mothersName,
+                    fathersName,
+                    studiesName,
+                    studiesMode };
+
+                return columns;
+
+
+
+
+            }
 
             public string getCorrectedRecord()
             {
@@ -206,7 +251,7 @@ namespace Cwiczenie2
                 Console.WriteLine();
                 int count = 0;
 
-                foreach (string s in record)
+                foreach (string s in columns)
                 {
                     count++;
 
