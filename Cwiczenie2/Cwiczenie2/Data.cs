@@ -9,12 +9,14 @@ public     class Data
     {
         public List<string> data;
         public  List<CorrectRecord> dataSets { get; set; }
+        public List<Student> students { get; set; }
        
         
 
         public Data(List<string> lista)
         {
             data = new List<string>();
+            students = new List<Student>();
             dataSets = new List<CorrectRecord>();
             extractData(lista);
 
@@ -62,6 +64,29 @@ public     class Data
                         data.Add(record);
 
                         correctRecord.showDataSet();
+
+                        students.Add(new Student
+                        {
+
+                            indexNumber = correctRecord.indexNumber,
+                            fname = correctRecord.fname,
+                            lname = correctRecord.lname,
+                            birthdate = correctRecord.birthdate,
+                            email = correctRecord.email,
+                            mothersName = correctRecord.mothersName,
+                            fathersName = correctRecord.fathersName,
+                            studia = new Studia
+                            {
+                                name = correctRecord.studiesName,
+                                mode = correctRecord.studiesMode
+                            }
+
+
+
+
+
+
+                        });
 
 
 
