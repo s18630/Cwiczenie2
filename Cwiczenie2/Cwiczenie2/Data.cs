@@ -4,11 +4,13 @@ using System.Text.RegularExpressions;
 
 namespace Cwiczenie2
 {
-    class Data
+public     class Data
 
     {
         public List<string> data;
-        private List<CorrectRecord> dataSets;
+        public  List<CorrectRecord> dataSets { get; set; }
+       
+        
 
         public Data(List<string> lista)
         {
@@ -143,23 +145,24 @@ namespace Cwiczenie2
 
 
 
-        private class CorrectRecord
+        public class CorrectRecord
 
         {
-            public string[] columns;
-            private string correctedRecord;
+            public string[] columns { get; set; }
+            public string correctedRecord { get; set; }
+           
 
 
 
-            private string indexNumber;
-            private string fname ;
-            private string lname ;
-            private string birthdate;
-            private string email ;
-            private string mothersName ;
-            private string fathersName ;
-            private string studiesName;
-            private string studiesMode ;
+            public string indexNumber { get; set; }
+            public string fname { get; set; }
+            public string lname { get; set; }
+            public string birthdate { get; set; }
+            public string email { get; set; }
+            public string mothersName { get; set; }
+            public string fathersName { get; set; }
+            public string studiesName { get; set; }
+            public string studiesMode { get; set; }
 
 
             public CorrectRecord(string[] columns)
@@ -192,11 +195,11 @@ namespace Cwiczenie2
                
 
             }
-           
 
 
 
-            private string[] sortColumns(string [] columns) 
+
+            public string[] sortColumns(string [] columns) 
             {
                 this.indexNumber = columns[4];
                 this.fname = columns[0];
@@ -256,7 +259,7 @@ namespace Cwiczenie2
 
 
 
-            private bool isItEmpty(string pole)
+            public bool isItEmpty(string pole)
             {
                 return !(Regex.IsMatch(pole, "[a-z0-9]+", RegexOptions.IgnoreCase));
 
@@ -303,7 +306,7 @@ namespace Cwiczenie2
 
 
 
-        private bool isDuplicate(CorrectRecord record)
+        public bool isDuplicate(CorrectRecord record)
         {
             foreach (CorrectRecord s in dataSets)
             {

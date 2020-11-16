@@ -13,27 +13,32 @@ namespace Cwiczenie2
      [XmlAttribute(AttributeName = "indexNumber")]
         public string indexNumber { get; set; }
 
-    //    [XmlElement(ElementName = "fname")]
+//        [XmlElement(ElementName = "fname")]
         public string fname { get; set; }
 
-   //     [XmlElement(ElementName = "lname")]
+  //      [XmlElement(ElementName = "lname")]
         public string lname { get; set; }
 
     //    [XmlElement(ElementName = "birthdate")]
         public string birthdate { get; set; }
 
-    //    [XmlElement(ElementName = "email")]
+ //      [XmlElement(ElementName = "email")]
         public string email { get; set; }
 
 
-     //   [XmlElement(ElementName = "mothersName")]
+  //     [XmlElement(ElementName = "mothersName")]
         public string mothersName { get; set; }
 
 
-      //  [XmlElement(ElementName = "fathersName")]
+    //    [XmlElement(ElementName = "fathersName")]
         public string fathersName { get; set; }
 
-   //     [XmlElement(ElementName = "studies")]
+   //    [XmlElement(ElementName = "studies")]
         public Studia studia { get; set; }
     }
+
+
+   
+
+
 }

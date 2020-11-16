@@ -23,8 +23,8 @@ namespace Cwiczenie2
             {
 
 
-                ////          InputFile plikBezParametru = new InputFile();
-                //         plikBezParametru.showContent();
+                       InputFile plikBezParametru = new InputFile();
+                        plikBezParametru.showContent();
 
                 //    InputFile plikPoprawnyParametr = new InputFile("C:\\Users\\weron\\OneDrive\\Pulpit\\Plik testowy folder\\danetestowe.csv");
                 //    plikPoprawnyParametr.showContent();
@@ -36,8 +36,64 @@ namespace Cwiczenie2
 
 
 
-                //    Data daneStudentow = new Data(plikBezParametru.content);
-                //   daneStudentow.showData();
+                 Data daneStudentow = new Data(plikBezParametru.content);
+                List<string> records = daneStudentow.data;
+               
+                daneStudentow.showData();
+                Console.WriteLine("po records sreung");
+                List<Data.CorrectRecord> correctRecords = new List<Data.CorrectRecord>();
+                Console.WriteLine("po correct rec");
+
+                foreach(Data.CorrectRecord cs in correctRecords)
+                {
+                    
+                        Console.WriteLine("aaaa");
+                    
+                    cs.showDataSet();
+                }
+                Console.WriteLine("po correct rec");
+
+                List<Student> students = new List<Student>();
+
+                foreach( Data.CorrectRecord dc in correctRecords)
+                {
+
+                    students.Add(
+                        new Student
+                        {
+                            indexNumber = dc.indexNumber,
+                            fname = dc.fname,
+                            lname = dc.lname,
+                            birthdate = dc.birthdate,
+                            email = dc.email,
+                            mothersName = dc.mothersName,
+                            fathersName = dc.fathersName,
+                            studia = new Studia
+                            {
+                                name = dc.studiesName,
+                                mode = dc.studiesMode
+                            }
+
+
+                        }
+                        );
+
+                }
+
+               
+
+
+                foreach(Student s  in students)
+                {
+                    Console.WriteLine(s.email);
+                }
+
+
+
+                Console.WriteLine("bbbbbb");
+
+                XmlSerializer(students);
+               
 
                 //      PlikWyjsciowy plikWyjsciowy = new PlikWyjsciowy(daneStudentow.data);
 
@@ -46,6 +102,15 @@ namespace Cwiczenie2
                 //     PlikWyjsciowy plikWyjsciowy = new PlikWyjsciowy(daneStudentow.data, "testowyzapi.oml");
                 //       PlikWyjsciowy plikWyjsciowy = new PlikWyjsciowy(daneStudentow.data, "oml");
                 //      PlikWyjsciowy plikWyjsciowy = new PlikWyjsciowy(daneStudentow.data, "probazapisy.xml", "xml");
+
+
+                //utwórz studentów 
+
+
+
+
+
+
 
             }
             catch (FileNotFoundException ex)
@@ -78,7 +143,7 @@ namespace Cwiczenie2
 
 
 
-            Student s = new Student()
+       /*     Student s = new Student()
             {
                 indexNumber = "1",
                 fname = "Keronika",
@@ -143,7 +208,7 @@ namespace Cwiczenie2
             File.WriteAllText("plikjakohonson", jsonString);
 
 
-
+            */
 
 
 

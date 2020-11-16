@@ -160,7 +160,7 @@ namespace Cwiczenie2
           )
           );
 
-
+          
 
             Console.WriteLine(cust);
             var studentXml = new XDocument();
