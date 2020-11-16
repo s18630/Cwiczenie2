@@ -44,7 +44,12 @@ namespace Cwiczenie2
                 List<Student> students = daneStudentow.students;
 
                 XmlSerializer(students);
-               
+
+                string jsonString = JsonSerializer.Serialize(students);
+                File.WriteAllText("plikJSON", jsonString);
+
+
+
 
                 //      PlikWyjsciowy plikWyjsciowy = new PlikWyjsciowy(daneStudentow.data);
 
