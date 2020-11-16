@@ -23,8 +23,8 @@ namespace Cwiczenie2
             {
 
 
-                       InputFile plikBezParametru = new InputFile();
-                        plikBezParametru.showContent();
+                InputFile plikBezParametru = new InputFile();
+                plikBezParametru.showContent();
 
                 //    InputFile plikPoprawnyParametr = new InputFile("C:\\Users\\weron\\OneDrive\\Pulpit\\Plik testowy folder\\danetestowe.csv");
                 //    plikPoprawnyParametr.showContent();
@@ -36,17 +36,22 @@ namespace Cwiczenie2
 
 
 
-                 Data daneStudentow = new Data(plikBezParametru.content);
-  
-               
+                Data daneStudentow = new Data(plikBezParametru.content);
+
+
                 daneStudentow.showData();
-            
+
                 List<Student> students = daneStudentow.students;
 
                 XmlSerializer(students);
 
-                string jsonString = JsonSerializer.Serialize(students);
-                File.WriteAllText("plikJSON", jsonString);
+                PlikWyjsciowy pw = new PlikWyjsciowy(students);
+                PlikWyjsciowy pwjson = new PlikWyjsciowy(students, "Zkonstruktora.json", "json");
+
+
+
+            //  string jsonString = JsonSerializer.Serialize(students);
+           //   File.WriteAllText("plikJSON", jsonString);
 
 
 
@@ -99,72 +104,72 @@ namespace Cwiczenie2
 
 
 
-       /*     Student s = new Student()
-            {
-                indexNumber = "1",
-                fname = "Keronika",
-                lname = "jawor",
-                birthdate = "23.23",
-                email = "email@",
-                fathersName = "otek",
-                mothersName = "ania",
-                studia = new Studia()
-                {
-                    name = "informatyka",
-                    mode = "internetowe"
-                }
-            };
+            /*     Student s = new Student()
+                 {
+                     indexNumber = "1",
+                     fname = "Keronika",
+                     lname = "jawor",
+                     birthdate = "23.23",
+                     email = "email@",
+                     fathersName = "otek",
+                     mothersName = "ania",
+                     studia = new Studia()
+                     {
+                         name = "informatyka",
+                         mode = "internetowe"
+                     }
+                 };
 
-            XmlSerializer(s);
-
-
-
-            Student s2= new Student()
-            {
-                indexNumber = "2",
-                fname = "weronika",
-                lname = "jawor",
-                birthdate = "23.23",
-                email = "email@",
-                fathersName = "otek",
-                mothersName = "ania",
-                studia = new Studia()
-                {
-                    name = "informatyka",
-                    mode = "internetowe"
-                }
-            };
+                 XmlSerializer(s);
 
 
-            Student s3 = new Student()
-            {
-                indexNumber = "3",
-                fname = "weronika",
-                lname = "jawor",
-                birthdate = "23.23",
-                email = "email@",
-                fathersName = "otek",
-                mothersName = "ania",
-                studia = new Studia()
-                {
-                    name = "informatyka",
-                    mode = "internetowe"
-                }
-            };
 
-            List<Student> listaStudentow = new List<Student>();
-            listaStudentow.Add(s);
-            listaStudentow.Add(s2);
-            listaStudentow.Add(s3);
+                 Student s2= new Student()
+                 {
+                     indexNumber = "2",
+                     fname = "weronika",
+                     lname = "jawor",
+                     birthdate = "23.23",
+                     email = "email@",
+                     fathersName = "otek",
+                     mothersName = "ania",
+                     studia = new Studia()
+                     {
+                         name = "informatyka",
+                         mode = "internetowe"
+                     }
+                 };
 
 
-  XmlSerializer(listaStudentow);
+                 Student s3 = new Student()
+                 {
+                     indexNumber = "3",
+                     fname = "weronika",
+                     lname = "jawor",
+                     birthdate = "23.23",
+                     email = "email@",
+                     fathersName = "otek",
+                     mothersName = "ania",
+                     studia = new Studia()
+                     {
+                         name = "informatyka",
+                         mode = "internetowe"
+                     }
+                 };
 
-          string jsonString = JsonSerializer.Serialize(listaStudentow);
-            File.WriteAllText("plikjakohonson", jsonString);
+                 List<Student> listaStudentow = new List<Student>();
+                 listaStudentow.Add(s);
+                 listaStudentow.Add(s2);
+                 listaStudentow.Add(s3);
 
 
-            */
+       XmlSerializer(listaStudentow);
+
+               string jsonString = JsonSerializer.Serialize(listaStudentow);
+                 File.WriteAllText("plikjakohonson", jsonString);
+
+
+                 */
 
 
 
@@ -173,10 +178,11 @@ namespace Cwiczenie2
 
         }
 
-        private static void  XmlSerializer(Student student)
-        { string filename = "osoba.xml";
-            var serializer = new  XmlSerializer(typeof(Student));
-            using(var stream = File.Open(filename, FileMode.Create))
+        private static void XmlSerializer(Student student)
+        {
+            string filename = "osoba.xml";
+            var serializer = new XmlSerializer(typeof(Student));
+            using (var stream = File.Open(filename, FileMode.Create))
             {
 
                 serializer.Serialize(stream, student);

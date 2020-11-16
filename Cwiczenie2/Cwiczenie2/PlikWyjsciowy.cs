@@ -10,59 +10,119 @@ namespace Cwiczenie2
     using System.Collections.Generic;
     using System.Linq;
     using System.Runtime;
+    using System.Text.Json;
     using System.Xml.Linq;
     public class PlikWyjsciowy
     {
 
         List<string> data;
+        List<Student> students;
         string sciezka;
         string formatDanych;
-        public PlikWyjsciowy(List<string> listaDanych,string sciezkaDocelowa, string formatDanych)
+
+        public PlikWyjsciowy(List<Student> students)
         {
+            this.students = students;
+            sciezka = @"żesult.xml";
+            formatDanych = "xml";
+            XmlSerializer(students, sciezka);
+        }
 
-            this.data = listaDanych;
 
-          if(  isFormatXML(formatDanych)== false)
+        public PlikWyjsciowy(List<Student>students,string sciezka, string formatDanych)
+        {
+            this.students = students;
+
+            if (isFormatXML(formatDanych) == false &&
+                isFormatJSON(formatDanych)==false)
             {
-
-                throw new Exception("Nieprawidłowy format danych : "+ formatDanych);
-
+                throw new Exception("Nieprawidłowy format danych : " + formatDanych);
             }
             else
             {
                 this.formatDanych = formatDanych;
-
             }
 
 
-          if( isPathCorrectJSON(sciezkaDocelowa))
+
+
+            if (isPathCorrectJSON(sciezka) && isFormatJSON(formatDanych))
             {
-
-                throw new Exception("Nieprawidłowa ścieżka docelowa : " + sciezkaDocelowa);
-
-            }
-
-            if (isPathCorrectXML(sciezkaDocelowa))
-            {
-
-                this.sciezka = sciezkaDocelowa;
+                //stworz plik dolecowy 
+                this.sciezka = sciezka;
+                this.formatDanych = formatDanych;
+                //metoda tworzenia pliku json
+                JsonCreateFile(students, sciezka);
 
             }
             else
             {
-                throw new Exception("Nieprawidłowa ścieżka docelowa : " + sciezkaDocelowa);
+                if (isPathCorrectXML(sciezka) && isFormatXML(formatDanych))
+                {
 
 
-            }
-            
-            UtorzeniePlikuXML();
+                    // stwórz plik docelowy 
+                    this.sciezka = sciezka;
+                this.formatDanych = formatDanych;
+                XmlSerializer(students, sciezka);
+                }
+                else
+                {
+
+                // zapis jako bład
+                //wyrzucenie błedy
+                throw new Exception("Nieprawidłowa argumenty  : " + sciezka + "," + formatDanych);
+                }
+           
+
            
 
 
 
+
+
+            }
+            
+          
+
         }
 
 
+
+
+
+
+
+        public PlikWyjsciowy(List<string> listaDanych,string sciezkaDocelowa, string formatDanych)
+        {
+            this.data = listaDanych;
+
+          if(  isFormatXML(formatDanych)== false)
+            {
+                throw new Exception("Nieprawidłowy format danych : "+ formatDanych);
+            }
+            else
+            {
+                this.formatDanych = formatDanych;
+            }
+
+          if( isPathCorrectJSON(sciezkaDocelowa))
+            {
+                throw new Exception("Nieprawidłowa ścieżka docelowa : " + sciezkaDocelowa);
+            }
+
+            if (isPathCorrectXML(sciezkaDocelowa))
+            {
+                this.sciezka = sciezkaDocelowa;
+            }
+            else
+            {
+                throw new Exception("Nieprawidłowa ścieżka docelowa : " + sciezkaDocelowa);
+            }
+            
+          UtorzeniePlikuXML();
+
+        }
 
 
 
@@ -72,20 +132,12 @@ namespace Cwiczenie2
             this.data = listaDanych;
             // metoda na sprawdzenie czy dziala scieżka
 
-
             if (sciezkaDocelowa.EndsWith("xml"))
             {
-
                 if (isPathCorrectXML(sciezkaDocelowa))
                 {
-
-
                     this.sciezka = sciezkaDocelowa;
                     this.formatDanych = "xml";
-
-
-
-
                 }
 
                 if (isFormatXML(sciezkaDocelowa))
@@ -100,14 +152,8 @@ namespace Cwiczenie2
 
                 throw new ArgumentException("Podana ścieżka jest niepoprawna : " + sciezkaDocelowa);
             }
-           
-                
-               UtorzeniePlikuXML();
 
-         
-
-
-
+              UtorzeniePlikuXML();
 
 
         }
@@ -117,7 +163,6 @@ namespace Cwiczenie2
 
         public PlikWyjsciowy(List<string> listaDanych )
         {
-
             this.data = listaDanych;
             // metoda na sprawdzenie czy dziala scieżka
             sciezka = @"żesult.xml";
@@ -126,81 +171,91 @@ namespace Cwiczenie2
             //domyslne arg
             UtorzeniePlikuXML();
 
-
-
-
         }
 
 
 
 
-        public void UtorzeniePlikuXML()
-        {
+           public void UtorzeniePlikuXML()
+           {
 
-            XElement cust = new XElement("studenci",
-
-
-          from str in data
-          let fields = str.Split(',')
-
-          select new XElement("Student",
-              new XAttribute("indexNumber", fields[0]),
-              new XElement("fname", fields[1]),
-              new XElement("lname", fields[2]),
-              new XElement("birthdate", fields[3]),
-              new XElement("Phone", fields[4]),
-              new XElement("mothersname", fields[5]),
-               new XElement("fathersname", fields[6]),
-              new XElement("studies",
-                  new XElement("name", fields[7]),
-                  new XElement("mode", fields[8])
+               XElement cust = new XElement("studenci",
 
 
-              )
-          )
-          );
+             from str in data
+             let fields = str.Split(',')
 
-          
+             select new XElement("Student",
+                 new XAttribute("indexNumber", fields[0]),
+                 new XElement("fname", fields[1]),
+                 new XElement("lname", fields[2]),
+                 new XElement("birthdate", fields[3]),
+                 new XElement("Phone", fields[4]),
+                 new XElement("mothersname", fields[5]),
+                  new XElement("fathersname", fields[6]),
+                 new XElement("studies",
+                     new XElement("name", fields[7]),
+                     new XElement("mode", fields[8])
 
-            Console.WriteLine(cust);
-            var studentXml = new XDocument();
 
-
-
-            DateTime dt = DateTime.Now;
-            string czas = dt.ToString(System.Globalization.CultureInfo.CreateSpecificCulture("fr-FR"));
-
-
-            //Now, we are Adding the Root Element  
-            var rootElement = new XElement("uczelnia",
-                new XAttribute("createdAt", czas),
-                new XAttribute("author", "Weronika Jaworek")
+                 )
+             )
              );
 
-            studentXml.Add(rootElement); 
-
-            var e2 = new XElement(cust);
 
 
-            rootElement.Add(cust);
-          
- //         Console.WriteLine(studentXml.ToString());
-            studentXml.Save(sciezka);
-  //        Console.ReadKey();
+               Console.WriteLine(cust);
+               var studentXml = new XDocument();
 
 
 
+               DateTime dt = DateTime.Now;
+               string czas = dt.ToString(System.Globalization.CultureInfo.CreateSpecificCulture("fr-FR"));
 
 
+               //Now, we are Adding the Root Element  
+               var rootElement = new XElement("uczelnia",
+                   new XAttribute("createdAt", czas),
+                   new XAttribute("author", "Weronika Jaworek")
+                );
+
+               studentXml.Add(rootElement); 
+
+               var e2 = new XElement(cust);
 
 
+               rootElement.Add(cust);
 
+    //         Console.WriteLine(studentXml.ToString());
+               studentXml.Save(sciezka);
+     //        Console.ReadKey();
 
+           }
+        
+
+        public static void XmlSerializer(List<Student> students, string sciezka)
+        {
+            string filename =sciezka;
+            var serializer = new XmlSerializer(typeof(List<Student>));
+            using (var stream = File.Open(filename, FileMode.Create))
+            {
+
+                serializer.Serialize(stream, students);
+            }
+        }
+        public static void JsonCreateFile (List<Student> students, string sciezka)
+        {  
+            string jsonString = JsonSerializer.Serialize(students);
+            File.WriteAllText(sciezka,jsonString);
+
+        
         }
 
 
 
-         public bool isPathCorrectXML( string path)
+
+
+        public bool isPathCorrectXML( string path)
         {
             if (path.EndsWith(".xml"))
             {
@@ -246,11 +301,23 @@ namespace Cwiczenie2
             return false;
         }
 
+        public bool isFormatJSON(string format)
+        {
+            if (format.Equals("json", StringComparison.OrdinalIgnoreCase))
+            {
+
+                return true;
+            }
+
+
+            return false;
+        }
 
 
 
-            
-        
+
+
+
 
 
 
