@@ -83,19 +83,7 @@ namespace Cwiczenie2
         }
 
 
-      
-
-        public List<string> getFalseContent()
-        {
-
-            List<string> falseContent = content;
-            falseContent.Add("222, 3,2");
-            falseContent.Add(", 3,2");
-
-            return falseContent;
-        }
-
-
+     
 
 
     }

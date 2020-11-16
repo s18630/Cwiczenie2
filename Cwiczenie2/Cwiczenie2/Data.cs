@@ -146,7 +146,7 @@ namespace Cwiczenie2
         private class CorrectRecord
 
         {
-            private string[] columns;
+            public string[] columns;
             private string correctedRecord;
 
 
