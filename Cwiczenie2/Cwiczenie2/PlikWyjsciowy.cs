@@ -44,27 +44,20 @@ namespace Cwiczenie2
             }
 
 
-
-
             if (isPathCorrectJSON(sciezka) && isFormatJSON(formatDanych))
             {
-                //stworz plik dolecowy 
                 this.sciezka = sciezka;
                 this.formatDanych = formatDanych;
-                //metoda tworzenia pliku json
                 JsonCreateFile(students, sciezka);
-
             }
             else
             {
                 if (isPathCorrectXML(sciezka) && isFormatXML(formatDanych))
                 {
-
-
-                    // stwórz plik docelowy 
                     this.sciezka = sciezka;
-                this.formatDanych = formatDanych;
-                XmlSerializer(students, sciezka);
+                    this.formatDanych = formatDanych;
+                    XmlSerializer(students, sciezka);
+
                 }
                 else
                 {
@@ -73,17 +66,56 @@ namespace Cwiczenie2
                 //wyrzucenie błedy
                 throw new Exception("Nieprawidłowa argumenty  : " + sciezka + "," + formatDanych);
                 }
-           
+            }
+        }
 
-           
+        public PlikWyjsciowy(List<Student> students, string parametr)
+        {
 
+            this.students = students;
 
+            if (isFormatXML(parametr) || isPathCorrectXML(parametr))
+            {
+                this.formatDanych = "xml";
 
+                if (isPathCorrectXML(parametr))
+                {
+                    this.sciezka = parametr;
+                }
+                else
+                {
+                    this.sciezka = @"żesult.xml";
+                }
 
+                XmlSerializer(students, sciezka);
+            }
+            else
+            {
 
+                if (isFormatJSON(parametr) || isPathCorrectJSON(parametr))
+                {
+                    this.formatDanych = "JSON";
+
+                    if (isPathCorrectJSON(parametr))
+                    {
+                        this.sciezka = parametr;
+                    }
+                    else
+                    {
+                        this.sciezka = @"żesult.json";
+                    }
+                    JsonCreateFile(students, sciezka);
+                }
+                else
+                {
+                    // zapis o błedzie 
+                    //wywołać poprawny argument
+                    throw new ArgumentException("Podana ścieżka jest niepoprawna : " + parametr);
+                }
+       
             }
             
-          
+
 
         }
 

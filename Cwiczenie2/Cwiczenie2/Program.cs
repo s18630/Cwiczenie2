@@ -47,6 +47,7 @@ namespace Cwiczenie2
 
                 PlikWyjsciowy pw = new PlikWyjsciowy(students);
                 PlikWyjsciowy pwjson = new PlikWyjsciowy(students, "Zkonstruktora.json", "json");
+                PlikWyjsciowy plikzjsonDomyslnaNazwa = new PlikWyjsciowy(students, "json");
 
 
 
