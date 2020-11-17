@@ -41,18 +41,17 @@ namespace Cwiczenie2
                 this.format = format;
                 JsonCreateFile(students, path);
             }
+
+            if (isPathCorrectXML(path) && isFormatXML(format))
+            {
+                this.path = path;
+                this.format = format;
+                XmlSerializer(students, path);
+            }
+
             else
             {
-                if (isPathCorrectXML(path) && isFormatXML(format))
-                {
-                    this.path = path;
-                    this.format = format;
-                    XmlSerializer(students, path);
-                }
-                else
-                {
-                    throw new ArgumentException("Podana ścieżka jest niepoprawna\nparametr: " + path + ", " + format);
-                }
+              throw new ArgumentException("Podana ścieżka jest niepoprawna, parametr: " + path + ", " + format);
             }
         }
 
@@ -149,9 +148,9 @@ namespace Cwiczenie2
 
         public static void XmlSerializer(List<Student> students, string path)
         {
-            string filename = path;
+            
             var serializer = new XmlSerializer(typeof(List<Student>));
-            using (var stream = File.Open(filename, FileMode.Create))
+            using (var stream = File.Open(path, FileMode.Create))
             {
                 serializer.Serialize(stream, students);
             }

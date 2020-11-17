@@ -23,59 +23,98 @@ namespace Cwiczenie2
             string pathInput = null;
             string arg2 = null;
             string arg3 = null;
-            
-            if(args.Length == 0)
-            {
-                // zapis do pliku z błedami
-            }
-            else
-            {
-                if (args.Length > 3)
-                {
-                    //zła liczba argumentóq
 
-                }
-                else
-                {
+            /*     if(args.Length == 0)
+                 {
+                     errorsRecord.saveToFile("Brak dostarczonych argumentów");
+                 }
+                 else
+                 {
+                     if (args.Length > 3)
+                     {
+                         errorsRecord.saveToFile("Nieprawidłowa liczba argumentów");
+                     }
+                     else
+                     {
 
-                    //znajdz argument zakończony cvd 
-                    //jeśli nie ma daj domyślną nazwę 
+                         //znajdz argument zakończony cvd 
+                         //jeśli nie ma daj domyślną nazwę 
 
-                    foreach(string s in args)
-                    {
-                        if (s.EndsWith(".csv"))
-                        {
-                            pathInput = s;
-                            break;
-
-                        }
-  
-                    }
-                    
-                    foreach (string s in args)
-                    {
-                        int i = 1;
-                        if(!s.EndsWith(".csv"))
-                        {
-                            i++;
-                            if (i == 2)
-                            {
-                                arg2 = s;
-
-                            }
-                            if (i == 3)
-                            {
-                                arg3 = s;
-                            }
-              
-                        }
-
-                    }
-
-                }
+                         foreach(string s in args)
+                         {
+                             if (s.EndsWith(".csv"))
+                             {
+                                 pathInput = s;
+                                 break;
+                             }
+                         }
 
 
-            }
+
+                         foreach (string s in args)
+                         {
+                             if (!s.EndsWith(".csv"))
+                             {
+                                 arg2 = s;
+                                 errorsRecord.saveToFile("arg2 ->" + arg2);
+                                 break;
+
+                             }
+                         }
+
+
+                         foreach (string s in args)
+                         {
+                             if (!s.EndsWith(".csv") && !s.Equals(arg2))
+                             {
+                                 arg3 = s;
+                                 errorsRecord.saveToFile("arg3 ->" + arg3);
+                                 break;
+                             }
+                         }
+
+
+
+
+
+                     }
+
+
+
+                 }
+                 errorsRecord.saveToFile(arg2 + ", " + arg3);
+                 */
+            //1. kiedy nie ma doatępnego formaty
+            //    arg2 = "prawidlowebezformatu.json";
+            //    arg3 = "bezform";
+
+            //2a.kiedy 2 są prawidłowe i zgodne json
+            //     arg2 = "prawidłowy.json";
+            //      arg3 = "json";
+
+            //2b. kiedy 2 są niezgodne i json 
+            //      arg2 = "nieprawidłowy.json";
+            //     arg3 = "xml";
+
+
+            //3a. kiedy 2 sa poprawne i xml
+            //     arg2 = "npoprawne.xml";
+            //    arg3 = "xml";
+
+
+            //3a. kiedy 2 sa niepoprawne i xml
+            //       arg2 = "npoprawne.xml";
+            //     arg3 = "json";
+
+
+
+            //Konstruktor z 1 paramtetre,
+            // kiedy to poprawny format xml
+          //  arg2 = "xml";
+            //kiedy niepoprawny format 
+        //    arg2="niepop";
+
+
 
             //////////////////////////////////////////////////*
 
@@ -105,12 +144,49 @@ namespace Cwiczenie2
                 Data studentsData  = new Data(inputFile.content, errorsRecord);
                 studentsData.showData();
                 List<Student> students = studentsData.students;
+                OutputFile outputFile;
+
+                if (arg2!= null & arg3 != null)
+                {
+                    try
+                    {
+                      outputFile = new OutputFile(students, arg2 , arg3);
+                    }catch(Exception ex)
+                    {
+                       errorsRecord.saveToFile(ex.Message);
+                    }
+                }
+                else if(arg2 != null)
+                {
+                    try
+                    {
+                        outputFile = new OutputFile(students, arg2);
+                    }catch (ArgumentException ex)
+                    {
+                        errorsRecord.saveToFile(ex.Message);
+                    }
+                }
+                else
+                {
+                    outputFile = new OutputFile(students);
+                }
+
+
+                
+                   
+
+            
 
 
 
-             OutputFile pw = new OutputFile(students);
-              OutputFile pwjson = new OutputFile(students, "Zkonstruktora.json", "json");
-              OutputFile plikzjsonDomyslnaNazwa = new OutputFile(students, "json");
+
+
+
+
+
+         //     OutputFile pw = new OutputFile(students);
+        //    OutputFile pwjson = new OutputFile(students, "Zkonstruktora.json", "json");
+         //   OutputFile plikzjsonDomyslnaNazwa = new OutputFile(students, "json");
 
 
 
