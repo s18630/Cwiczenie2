@@ -74,10 +74,7 @@ namespace Cwiczenie2
                     this.path = @"żesult.xml";
                 }
                 XmlSerializer(students, path);
-            }
-            else
-            {
-                if (isFormatJSON(parameter) || isPathCorrectJSON(parameter))
+            }else if (isFormatJSON(parameter) || isPathCorrectJSON(parameter))
                 {
                     this.format= "JSON";
                     if (isPathCorrectJSON(parameter))
@@ -94,7 +91,7 @@ namespace Cwiczenie2
                 {
                     throw new ArgumentException("Podana ścieżka jest niepoprawna\nparametr: " + parameter);
                 }
-            }
+            
         }
 
 

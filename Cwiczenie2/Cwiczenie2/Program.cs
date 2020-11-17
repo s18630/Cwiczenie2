@@ -82,8 +82,83 @@ namespace Cwiczenie2
 
 
                  }
-                 errorsRecord.saveToFile(arg2 + ", " + arg3);
-                 */
+
+
+
+
+            */
+
+            if (args.Length == 0)
+            {
+                errorsRecord.saveToFile("Nie wprowadzono argumentów");
+            }
+
+            if (args.Length > 3)
+            {
+                errorsRecord.saveToFile("Wprowadzono zbyt dużo argumentów");
+            }
+
+            if( args.Length == 3)
+            {
+                pathInput = args[0];
+                arg2 = args[1];
+                arg3 = args[2];
+            }
+
+            if (args.Length == 2)
+            {
+                if (args[0].EndsWith(".csv"))
+                {
+                    pathInput = args[0];
+                    arg2 = args[1];
+                }else
+                {
+                    arg2 = args[0];
+                    arg3 = args[1];
+
+                }
+
+
+            }
+
+
+                 
+                
+
+
+
+           
+
+
+
+
+
+
+
+
+
+
+                 /*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                      errorsRecord.saveToFile(arg2 + ", " + arg3);
+                      */
             //1. kiedy nie ma doatępnego formaty
             //    arg2 = "prawidlowebezformatu.json";
             //    arg3 = "bezform";
@@ -110,9 +185,19 @@ namespace Cwiczenie2
 
             //Konstruktor z 1 paramtetre,
             // kiedy to poprawny format xml
-          //  arg2 = "xml";
+            //  arg2 = "xml";
             //kiedy niepoprawny format 
-        //    arg2="niepop";
+            //    arg2="niepop";
+
+            //kiedy to poprawna sciezka
+            //  arg2 = "poprawnasciezka.xml";
+
+            //kiedy to poprawna sciezka 
+            //  arg2 = "poprawna.json";
+
+            //sciezka niepoprawna
+
+          //  arg2 = "niepoprawnasciezka";
 
 
 
