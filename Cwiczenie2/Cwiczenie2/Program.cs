@@ -105,7 +105,7 @@ namespace Cwiczenie2
 
 
 
-                Data daneStudentow = new Data(inputFile.content);
+                Data daneStudentow = new Data(inputFile.content, errorsRecord);
 
 
                 daneStudentow.showData();

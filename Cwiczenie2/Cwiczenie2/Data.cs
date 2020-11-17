@@ -4,42 +4,36 @@ using System.Text.RegularExpressions;
 
 namespace Cwiczenie2
 {
-public     class Data
+    public class Data
 
     {
-        public List<string> data;
-        public  List<CorrectRecord> dataSets { get; set; }
+        public List<string> data { get; set; }
+        public  List<CorrectRecord> correctRecords{ get; set; }
         public List<Student> students { get; set; }
-       
-        
+        public ErrorsRegister errorsRegister { get; set; }
 
-        public Data(List<string> lista)
+
+
+        public Data(List<string> lista,ErrorsRegister errorsRegister)
         {
             data = new List<string>();
             students = new List<Student>();
-            dataSets = new List<CorrectRecord>();
+            correctRecords = new List<CorrectRecord>();
+            this.errorsRegister = errorsRegister;
             extractData(lista);
-
         }
 
 
-
-
-
-
-
-
-
-        public void extractData(List<string> lista)
+        public void extractData(List<string> list)
         {
             int iloscposprawdzeniu = 0;
-            int iloscrekordowWejsciowych = lista.Count;
+            int iloscrekordowWejsciowych = list.Count;
 
 
      
 
 
-            foreach (string s in lista)
+            foreach (string s in list)
             {
                
 
@@ -58,7 +52,7 @@ public     class Data
                     }
                     else
                     {
-                        dataSets.Add(correctRecord);
+                        correctRecords.Add(correctRecord);
                         string record = correctRecord.getCorrectedRecord();
 
                         data.Add(record);
@@ -333,7 +327,7 @@ public     class Data
 
         public bool isDuplicate(CorrectRecord record)
         {
-            foreach (CorrectRecord s in dataSets)
+            foreach (CorrectRecord s in correctRecords)
             {
                 int conditions = 0;
 
