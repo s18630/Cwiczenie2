@@ -120,6 +120,22 @@ namespace Cwiczenie2
 
 
             }
+            if (args.Length == 1)
+            {
+
+                if (args[0].EndsWith(".csv"))
+                {
+                    pathInput = args[0];
+                }
+                else
+                {
+                    arg2 = args[0];
+                }
+
+
+
+
+            }
 
 
                  
@@ -199,6 +215,9 @@ namespace Cwiczenie2
 
           //  arg2 = "niepoprawnasciezka";
 
+
+
+           
 
 
             //////////////////////////////////////////////////*
