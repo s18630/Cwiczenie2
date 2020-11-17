@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Xml.Serialization;
 
 namespace Cwiczenie2
 {
     [Serializable]
-    public class Studia
+    public class Studies
     {
        
         [XmlElement(ElementName = "name")]
         public string name { get; set; }
-        [XmlElement(ElementName = "node")]
+
+        [XmlElement(ElementName = "mode")]
         public string mode { get; set; }
     }
 }

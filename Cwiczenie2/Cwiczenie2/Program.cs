@@ -15,11 +15,10 @@ namespace Cwiczenie2
     {
         static void Main(string[] args)
         {
-            // stwórz plik z błedami 
+
 
             ErrorsRegister errorsRecord = new ErrorsRegister();
           
-
 
             string pathInput = null;
             string arg2 = null;
@@ -103,27 +102,16 @@ namespace Cwiczenie2
                 //      plikNiepoprwanyParametr.showContent();
 
 
-
-
-                Data daneStudentow = new Data(inputFile.content, errorsRecord);
-
-
-                daneStudentow.showData();
-
-                List<Student> students = daneStudentow.students;
-
-                XmlSerializer(students);
-
-                PlikWyjsciowy pw = new PlikWyjsciowy(students);
-                PlikWyjsciowy pwjson = new PlikWyjsciowy(students, "Zkonstruktora.json", "json");
-                PlikWyjsciowy plikzjsonDomyslnaNazwa = new PlikWyjsciowy(students, "json");
-                ErrorsRegister sb = new ErrorsRegister();
-                sb.saveToFile("pierwszy zapis");
+                Data studentsData  = new Data(inputFile.content, errorsRecord);
+                studentsData.showData();
+                List<Student> students = studentsData.students;
 
 
 
-            //  string jsonString = JsonSerializer.Serialize(students);
-           //   File.WriteAllText("plikJSON", jsonString);
+                OutputFile pw = new OutputFile(students);
+                OutputFile pwjson = new OutputFile(students, "Zkonstruktora.json", "json");
+                OutputFile plikzjsonDomyslnaNazwa = new OutputFile(students, "json");
+
 
 
 
@@ -156,121 +144,6 @@ namespace Cwiczenie2
 
 
 
-            /*     using (StreamReader reader = new StreamReader("dane.csv"))
-                 using (CsvReader csv = new CsvReader(reader,
-                     CultureInfo.InvariantCulture))
-                 {
-
-                     Student student = new Student();
-                     csv.Configuration.HasHeaderRecord = false;
-                     List<Student> records = csv.GetRecords<Student>().ToList();
-
-
-
-
-                 }
-
-
-                 }*/
-
-
-
-
-
-            /*     Student s = new Student()
-                 {
-                     indexNumber = "1",
-                     fname = "Keronika",
-                     lname = "jawor",
-                     birthdate = "23.23",
-                     email = "email@",
-                     fathersName = "otek",
-                     mothersName = "ania",
-                     studia = new Studia()
-                     {
-                         name = "informatyka",
-                         mode = "internetowe"
-                     }
-                 };
-
-                 XmlSerializer(s);
-
-
-
-                 Student s2= new Student()
-                 {
-                     indexNumber = "2",
-                     fname = "weronika",
-                     lname = "jawor",
-                     birthdate = "23.23",
-                     email = "email@",
-                     fathersName = "otek",
-                     mothersName = "ania",
-                     studia = new Studia()
-                     {
-                         name = "informatyka",
-                         mode = "internetowe"
-                     }
-                 };
-
-
-                 Student s3 = new Student()
-                 {
-                     indexNumber = "3",
-                     fname = "weronika",
-                     lname = "jawor",
-                     birthdate = "23.23",
-                     email = "email@",
-                     fathersName = "otek",
-                     mothersName = "ania",
-                     studia = new Studia()
-                     {
-                         name = "informatyka",
-                         mode = "internetowe"
-                     }
-                 };
-
-                 List<Student> listaStudentow = new List<Student>();
-                 listaStudentow.Add(s);
-                 listaStudentow.Add(s2);
-                 listaStudentow.Add(s3);
-
-
-       XmlSerializer(listaStudentow);
-
-               string jsonString = JsonSerializer.Serialize(listaStudentow);
-                 File.WriteAllText("plikjakohonson", jsonString);
-
-
-                 */
-
-
-
-
-
-
         }
-
-        private static void XmlSerializer(Student student)
-        {
-            string filename = "osoba.xml";
-            var serializer = new XmlSerializer(typeof(Student));
-            using (var stream = File.Open(filename, FileMode.Create))
-            {
-
-                serializer.Serialize(stream, student);
-            }
-        }
-        private static void XmlSerializer(List<Student> students)
-        {
-            string filename = "listaOsoby.xml";
-            var serializer = new XmlSerializer(typeof(List<Student>));
-            using (var stream = File.Open(filename, FileMode.Create))
-            {
-
-                serializer.Serialize(stream, students);
-            }
-        }
-
     }
 }

@@ -55,7 +55,7 @@ namespace Cwiczenie2
                             email = correctRecord.email,
                             mothersName = correctRecord.mothersName,
                             fathersName = correctRecord.fathersName,
-                            studia = new Studia
+                            studia = new Studies
                             {
                                 name = correctRecord.studiesName,
                                 mode = correctRecord.studiesMode

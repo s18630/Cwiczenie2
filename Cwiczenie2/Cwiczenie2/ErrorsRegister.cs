@@ -11,28 +11,19 @@ public  class ErrorsRegister
         public string fileName;
         public string path;
 
-
-
         public ErrorsRegister()
         {
             fileName= "łog.txt";
             path = @"łog.txt";
-
             createFile();
             string time = DateTime.Now.ToString("yyyy-MM-dd h:mm:ss tt");
             saveToFile(" ZAPIS: " + time);
         }
 
 
-      
-
-
         public void createFile()
         {
-
-
             Console.WriteLine("Path to my file: {0}\n", path);
-
             if (!System.IO.File.Exists(path))
             {
                 using (System.IO.FileStream fs = System.IO.File.Create(path))
@@ -45,8 +36,8 @@ public  class ErrorsRegister
                 Console.WriteLine("File \"{0}\" already exists.", fileName);
                 return;
             }
-
         }
+
 
         public void saveToFile(string record)
         {
@@ -56,13 +47,11 @@ public  class ErrorsRegister
                 {
                     file.WriteLine(record);
                 }
-
             }
             catch(Exception Ex)
             {
                 Console.WriteLine("File \"{0}\" do not exist", fileName);
             }
-  
         }
 
          
@@ -74,14 +63,11 @@ public  class ErrorsRegister
                 {
                     Console.WriteLine(sr.ReadToEnd());
                 }
-
-
             }
             catch (IOException e)
             {
                 Console.WriteLine("The file could not be read:");
                 Console.WriteLine(e.Message);
-
             }
               }
       

@@ -12,7 +12,7 @@ namespace Cwiczenie2
     using System.Runtime;
     using System.Text.Json;
     using System.Xml.Linq;
-    public class PlikWyjsciowy
+    public class OutputFile
     {
 
         List<string> data;
@@ -20,7 +20,7 @@ namespace Cwiczenie2
         string sciezka;
         string formatDanych;
 
-        public PlikWyjsciowy(List<Student> students)
+        public OutputFile(List<Student> students)
         {
             this.students = students;
             sciezka = @"żesult.xml";
@@ -29,7 +29,7 @@ namespace Cwiczenie2
         }
 
 
-        public PlikWyjsciowy(List<Student>students,string sciezka, string formatDanych)
+        public OutputFile(List<Student>students,string sciezka, string formatDanych)
         {
             this.students = students;
 
@@ -69,7 +69,7 @@ namespace Cwiczenie2
             }
         }
 
-        public PlikWyjsciowy(List<Student> students, string parametr)
+        public OutputFile(List<Student> students, string parametr)
         {
 
             this.students = students;
@@ -125,7 +125,7 @@ namespace Cwiczenie2
 
 
 
-        public PlikWyjsciowy(List<string> listaDanych,string sciezkaDocelowa, string formatDanych)
+        public OutputFile(List<string> listaDanych,string sciezkaDocelowa, string formatDanych)
         {
             this.data = listaDanych;
 
@@ -158,7 +158,7 @@ namespace Cwiczenie2
 
 
 
-        public PlikWyjsciowy(List<string> listaDanych, string sciezkaDocelowa)
+        public OutputFile(List<string> listaDanych, string sciezkaDocelowa)
         {
 
             this.data = listaDanych;
@@ -193,7 +193,7 @@ namespace Cwiczenie2
 
 
 
-        public PlikWyjsciowy(List<string> listaDanych )
+        public OutputFile(List<string> listaDanych )
         {
             this.data = listaDanych;
             // metoda na sprawdzenie czy dziala scieżka
