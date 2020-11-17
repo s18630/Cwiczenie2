@@ -19,10 +19,8 @@ public  class ErrorsRegister
             path = @"łog.txt";
 
             createFile();
-     
-          DateTime currentTime = DateTime.Today;
-          string time = currentTime.ToString();
-          saveToFile(" ZAPIS: " + time);
+            string time = DateTime.Now.ToString("yyyy-MM-dd h:mm:ss tt");
+            saveToFile(" ZAPIS: " + time);
         }
 
 
