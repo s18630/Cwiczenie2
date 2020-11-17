@@ -26,42 +26,28 @@ namespace Cwiczenie2
 
         public void extractData(List<string> list)
         {
-            int iloscposprawdzeniu = 0;
-            int iloscrekordowWejsciowych = list.Count;
-
-
-     
-
+            int allRecords =list.Count;
+            int okRecords = 0;
 
             foreach (string s in list)
             {
-               
-
                 string[] studentsData = s.Split(',');
-
-
-
                 try
                 {
                     CorrectRecord correctRecord = new CorrectRecord(studentsData);
 
                     if (isDuplicate(correctRecord) )
                     {
-
-                        throw new Exception("Znaleziono duplikat: " + correctRecord.getCorrectedRecord() );
+                        errorsRegister.saveToFile("Znaleziono duplikat: " + correctRecord.getCorrectedRecord());
                     }
                     else
                     {
                         correctRecords.Add(correctRecord);
                         string record = correctRecord.getCorrectedRecord();
-
                         data.Add(record);
-
                         correctRecord.showDataSet();
-
                         students.Add(new Student
                         {
-
                             indexNumber = correctRecord.indexNumber,
                             fname = correctRecord.fname,
                             lname = correctRecord.lname,
@@ -74,58 +60,17 @@ namespace Cwiczenie2
                                 name = correctRecord.studiesName,
                                 mode = correctRecord.studiesMode
                             }
-
-
-
-
-
-
                         });
-
-
-
-                        iloscposprawdzeniu++;
-
+                        okRecords++;
                     }
-                   
-
-
-               //     correctRecord.showDataSet();
-
-         
-
-                //    iloscposprawdzeniu++;
-
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
-
-
+                    errorsRegister.saveToFile(ex.Message);
                 }
-
-
-
-
-
-
-
-
-
             }
-
-
-
-
-            // zrobić set data i dodać 
-
-
-
-            Console.WriteLine(" przed " + iloscrekordowWejsciowych + "----> " + "po" + iloscposprawdzeniu);
-
-
-
-
+            Console.WriteLine("All records: " + allRecords + "  Correct records: " + okRecords);
         }
 
 
@@ -133,35 +78,46 @@ namespace Cwiczenie2
         {
             if (data.Count == 0)
             {
-                Console.WriteLine("Lista jest pusta ");
+                Console.WriteLine("No data to display. ");
             }
-
             else
             {
-
-                Console.WriteLine(" Dostepne dane:");
-
-                int i = 0;
-
+                Console.WriteLine(" Data:");
+                int count = 0;
                 foreach (string s in data)
-                { 
-                    i++;
-                    Console.WriteLine(" Zestaw Danych nr " + i);
-
+                {
+                    count++;
+                    Console.WriteLine(" Zestaw Danych nr " + count);
                     Console.WriteLine(s + "\n");
                 }
-
-                Console.WriteLine("Zostało zapisane " + i + "zestawów danych");
-
-
+                Console.WriteLine("Zostało zapisane " + count + "zestawów danych");
             }
-
-
-
-
-
         }
 
+        public bool isDuplicate(CorrectRecord record)
+        {
+            foreach (CorrectRecord s in correctRecords)
+            {
+                int conditions = 0;
+                if (Equals(s.indexNumber, record.indexNumber))
+                {
+                    conditions++;
+                }
+                if (Equals(s.fname, record.fname))
+                {
+                    conditions++;
+                }
+                if (Equals(s.lname, record.lname))
+                {
+                    conditions++;
+                }
+                if (conditions == 3)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
 
         public class CorrectRecord
@@ -170,9 +126,6 @@ namespace Cwiczenie2
             public string[] columns { get; set; }
             public string correctedRecord { get; set; }
            
-
-
-
             public string indexNumber { get; set; }
             public string fname { get; set; }
             public string lname { get; set; }
@@ -186,36 +139,22 @@ namespace Cwiczenie2
 
             public CorrectRecord(string[] columns)
             {
-
-
+                string line= String.Join(",", columns);
                 if (columns.Length != 9)
                 {
-                    throw new Exception("Zła ilośc dostarczonych do konstruktora danych");
+                    throw new Exception("Zła ilośc dostarczonych do konstruktora danych: " + line);
                 }
-
                 if (isBlankFiled(columns))
                 {
-
-                    throw new Exception(" Jenda z kolumn nawiera nieprawidłową wartość");
-
+                    throw new Exception("Jenda z kolumn nawiera nieprawidłową wartość: " + line);
                 }
                 else
                 {
-
                     columns=sortColumns(columns);
-
                     this.columns = columns;
-
                     correctedRecord= string.Join(",", columns);
-                    
-
                 }
-
-               
-
             }
-
-
 
 
             public string[] sortColumns(string [] columns) 
@@ -240,13 +179,9 @@ namespace Cwiczenie2
                     fathersName,
                     studiesName,
                     studiesMode };
-
                 return columns;
-
-
-
-
             }
+
 
             public string getCorrectedRecord()
             {
@@ -254,112 +189,39 @@ namespace Cwiczenie2
             }
 
 
-
-
             public bool isBlankFiled(string[] fields)
             {
                 int column = 0;
-
                 foreach (string s in fields)
                 {
                     column++;
-
                     if (isItEmpty(s) == true)
                     {
                         Console.WriteLine(" Niepasujące pole w kolumnie " + column);
                         return true;
-
                     }
-
                 }
-
                 return false;
             }
-
 
 
             public bool isItEmpty(string pole)
             {
                 return !(Regex.IsMatch(pole, "[a-z0-9]+", RegexOptions.IgnoreCase));
-
             }
-
-
-
-
 
 
             public void showDataSet()
             {
                 Console.WriteLine();
                 int count = 0;
-
                 foreach (string s in columns)
                 {
                     count++;
-
                     Console.WriteLine("Kolumna " + count + ": " + s);
-
                 }
-
-
             }
-            public string getIndexNumber()
-            {
-                return indexNumber;
-            }
-
-            public string getFname()
-            {
-                return fname;
-            }
-
-            public string getLname()
-            {
-                return lname;
-            }
-
-
         }
-
-
-
-
-        public bool isDuplicate(CorrectRecord record)
-        {
-            foreach (CorrectRecord s in correctRecords)
-            {
-                int conditions = 0;
-
-                if (Equals(s.getIndexNumber(), record.getIndexNumber()))
-                {
-                    conditions++;
-                }
-
-                if (Equals(s.getFname(), record.getFname()))
-                {
-                    conditions++;
-                }
-
-                if (Equals(s.getLname(), record.getLname()))
-                {
-                    conditions++;
-                }
-
-                if (conditions == 3)
-                {
-                    return true;
-                }
-
-            }
-
-
-            return false;
-        }
-
-
-
-
 
 
 
