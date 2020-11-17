@@ -108,9 +108,9 @@ namespace Cwiczenie2
 
 
 
-                OutputFile pw = new OutputFile(students);
-                OutputFile pwjson = new OutputFile(students, "Zkonstruktora.json", "json");
-                OutputFile plikzjsonDomyslnaNazwa = new OutputFile(students, "json");
+             OutputFile pw = new OutputFile(students);
+              OutputFile pwjson = new OutputFile(students, "Zkonstruktora.json", "json");
+              OutputFile plikzjsonDomyslnaNazwa = new OutputFile(students, "json");
 
 
 
