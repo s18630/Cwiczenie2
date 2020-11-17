@@ -16,6 +16,11 @@ namespace Cwiczenie2
         static void Main(string[] args)
         {
             // stwórz plik z błedami 
+
+            ErrorsRegister errorsRecord = new ErrorsRegister();
+          
+
+
             string pathInput = null;
             string arg2 = null;
             string arg3 = null;
@@ -77,25 +82,18 @@ namespace Cwiczenie2
 
             try
             {
-                InputFile plikBezParametru;
+                InputFile inputFile;
 
                 if (pathInput == null)
                 {
-
-                    plikBezParametru = new InputFile();
-
+                    inputFile = new InputFile();
                 }
                 else
                 {
-
-                    plikBezParametru = new InputFile(pathInput);
-
+                    inputFile = new InputFile(pathInput);
                 }
 
-
-
-
-                plikBezParametru.showContent();
+                inputFile.showContent();
 
                 //    InputFile plikPoprawnyParametr = new InputFile("C:\\Users\\weron\\OneDrive\\Pulpit\\Plik testowy folder\\danetestowe.csv");
                 //    plikPoprawnyParametr.showContent();
@@ -107,7 +105,7 @@ namespace Cwiczenie2
 
 
 
-                Data daneStudentow = new Data(plikBezParametru.content);
+                Data daneStudentow = new Data(inputFile.content);
 
 
                 daneStudentow.showData();
@@ -119,8 +117,8 @@ namespace Cwiczenie2
                 PlikWyjsciowy pw = new PlikWyjsciowy(students);
                 PlikWyjsciowy pwjson = new PlikWyjsciowy(students, "Zkonstruktora.json", "json");
                 PlikWyjsciowy plikzjsonDomyslnaNazwa = new PlikWyjsciowy(students, "json");
-                SpisBledow sb = new SpisBledow();
-                sb.zapiszDoPliku("pierwszy zapis");
+                ErrorsRegister sb = new ErrorsRegister();
+                sb.saveToFile("pierwszy zapis");
 
 
 
@@ -151,6 +149,7 @@ namespace Cwiczenie2
             catch (FileNotFoundException ex)
             {
                 Console.WriteLine(ex.Message);
+                errorsRecord.saveToFile(ex.Message);
             }
 
 
