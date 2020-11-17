@@ -15,15 +15,86 @@ namespace Cwiczenie2
     {
         static void Main(string[] args)
         {
+            // stwórz plik z błedami 
+            string pathInput = null;
+            string arg2 = null;
+            string arg3 = null;
+            
+            if(args.Length == 0)
+            {
+                // zapis do pliku z błedami
+            }
+            else
+            {
+                if (args.Length > 3)
+                {
+                    //zła liczba argumentóq
 
+                }
+                else
+                {
+
+                    //znajdz argument zakończony cvd 
+                    //jeśli nie ma daj domyślną nazwę 
+
+                    foreach(string s in args)
+                    {
+                        if (s.EndsWith(".csv"))
+                        {
+                            pathInput = s;
+                            break;
+
+                        }
+  
+                    }
+                    
+                    foreach (string s in args)
+                    {
+                        int i = 1;
+                        if(!s.EndsWith(".csv"))
+                        {
+                            i++;
+                            if (i == 2)
+                            {
+                                arg2 = s;
+
+                            }
+                            if (i == 3)
+                            {
+                                arg3 = s;
+                            }
+              
+                        }
+
+                    }
+
+                }
+
+
+            }
 
             //////////////////////////////////////////////////*
 
             try
             {
+                InputFile plikBezParametru;
+
+                if (pathInput == null)
+                {
+
+                    plikBezParametru = new InputFile();
+
+                }
+                else
+                {
+
+                    plikBezParametru = new InputFile(pathInput);
+
+                }
 
 
-                InputFile plikBezParametru = new InputFile();
+
+
                 plikBezParametru.showContent();
 
                 //    InputFile plikPoprawnyParametr = new InputFile("C:\\Users\\weron\\OneDrive\\Pulpit\\Plik testowy folder\\danetestowe.csv");
@@ -48,6 +119,8 @@ namespace Cwiczenie2
                 PlikWyjsciowy pw = new PlikWyjsciowy(students);
                 PlikWyjsciowy pwjson = new PlikWyjsciowy(students, "Zkonstruktora.json", "json");
                 PlikWyjsciowy plikzjsonDomyslnaNazwa = new PlikWyjsciowy(students, "json");
+                SpisBledow sb = new SpisBledow();
+                sb.zapiszDoPliku("pierwszy zapis");
 
 
 
